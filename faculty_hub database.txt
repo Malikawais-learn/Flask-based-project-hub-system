@@ -1,0 +1,251 @@
+//below code can be copied to create database and respective table that are being used in the application:
+
+--  CREATE DATABASE faculty_hub;
+-- CREATE TABLE `faculty_hub`.`users` (
+--   `username` VARCHAR(50) NOT NULL,
+--   `role` VARCHAR(20) NULL,
+--   `password` VARCHAR(100) NOT NULL,
+--   `id` INT NOT NULL,
+--   PRIMARY KEY (`id`));
+-- select *from faculty_hub.user;
+-- drop table faculty_hub.users
+
+
+-- -----------------------------
+
+-- CREATE TABLE `faculty_hub`.`user` (
+--   `username` VARCHAR(16) NOT NULL,
+--   `email` VARCHAR(255) NULL,
+--   `password` VARCHAR(32) NOT NULL,
+--   `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+--   `user_id` INT NOT NULL AUTO_INCREMENT,
+--   PRIMARY KEY (`user_id`),
+--   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)AUTO_INCREMENT = 1;
+
+-- select * from faculty_hub.user
+
+-- ----------------------------------
+
+-- CREATE TABLE `faculty_hub`.`expertise` (
+--   `expertise_id` INT NOT NULL AUTO_INCREMENT,
+--   `subject` VARCHAR(45) NOT NULL,
+--   `description` VARCHAR(255) NOT NULL,
+--   `user_id` INT NOT NULL,
+--   INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
+--   PRIMARY KEY (`expertise_id`),
+--   CONSTRAINT `user_id`
+--     FOREIGN KEY (`user_id`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION) AUTO_INCREMENT = 1;
+
+
+
+-- -----------------------------------------
+-- ALTER TABLE `faculty_hub`.`expertise` 
+-- DROP FOREIGN KEY `user_id`;
+-- ALTER TABLE `faculty_hub`.`expertise` 
+-- ADD CONSTRAINT `fk_expertise_user`
+--   FOREIGN KEY (`user_id`)
+--   REFERENCES `faculty_hub`.`user` (`user_id`);
+
+
+-- -----------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`interest` (
+--   `interest_id` INT NOT NULL AUTO_INCREMENT,
+--   `subject` VARCHAR(45) NOT NULL,
+--   `description` VARCHAR(255) NOT NULL,
+--   `user_id` INT NOT NULL,
+--   INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
+--   PRIMARY KEY (`interest_id`),
+--   CONSTRAINT `fk_interest_user`
+--     FOREIGN KEY (`user_id`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION) AUTO_INCREMENT = 1;
+
+
+-- --------------------------------------------
+-- CREATE TABLE `faculty_hub`.`indvidual_qualification` (
+--   `indvidual_qualification_id` INT NOT NULL AUTO_INCREMENT,
+--   `user_id` INT NOT NULL,
+--   `degree_level` VARCHAR(45) NOT NULL,
+--   `institute` VARCHAR(200) NOT NULL,
+--   `subject` VARCHAR(200) NOT NULL,
+--   `start_date` DATE NOT NULL,
+--   `finish_date` DATE NULL,
+--   PRIMARY KEY (`indvidual_qualification_id`),
+--   INDEX `qualification_user_idx` (`user_id` ASC) VISIBLE,
+--   CONSTRAINT `qualification_user`
+--     FOREIGN KEY (`user_id`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION) AUTO_INCREMENT = 1;
+
+-- -----------------------------------------
+-- CREATE TABLE `faculty_hub`.`school_office` (
+--   `school_id` INT NOT NULL AUTO_INCREMENT,
+--   `school_office` VARCHAR(100) NOT NULL,
+--   `Department` VARCHAR(100) NOT NULL,
+--   PRIMARY KEY (`school_id`)) AUTO_INCREMENT = 1;
+  
+  
+--   Drop table faculty_hub.school_office;
+
+-- ---------------------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`user_info` (
+--   `user_info_id` INT NOT NULL AUTO_INCREMENT,
+--   `user_id` INT NOT NULL,
+--   `school_id` INT NOT NULL,
+--   `first_name` VARCHAR(100) NULL,
+--   `last_name` VARCHAR(100) NOT NULL,
+--   `dob` DATE NOT NULL,
+--   `designation` VARCHAR(100) NOT NULL,
+--   `gender` VARCHAR(100) NOT NULL,
+--   `nationality` VARCHAR(100) NOT NULL,
+--   `contact_info` VARCHAR(13) NOT NULL,
+--   `contact_email` VARCHAR(100) NOT NULL,
+--   PRIMARY KEY (`user_info_id`),
+--   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
+--   INDEX `info_school_id_idx` (`school_id` ASC) VISIBLE,
+--   CONSTRAINT `info_user_id`
+--     FOREIGN KEY (`user_id`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `info_school_id`
+--     FOREIGN KEY (`school_id`)
+--     REFERENCES `faculty_hub`.`school_office` (`school_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION) AUTO_INCREMENT = 1;
+
+-- ------------------------------------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`company_list` (
+--   `company_id` INT NOT NULL AUTO_INCREMENT,
+--   `company_name` VARCHAR(100) NOT NULL,
+--   `discription` VARCHAR(200) NULL,
+--   `department` VARCHAR(100) NOT NULL,
+--   `contact_number` VARCHAR(13) NOT NULL,
+--   `contact_email` VARCHAR(100) NOT NULL,
+--   PRIMARY KEY (`company_id`)) AUTO_INCREMENT = 1;
+
+-- ----------------------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`project_type` (
+--   `type_id` INT NOT NULL AUTO_INCREMENT,
+--   `project_type` VARCHAR(100) NOT NULL,
+--   `Discription` VARCHAR(200) NOT NULL,
+--   PRIMARY KEY (`type_id`),
+--   UNIQUE INDEX `project_type_UNIQUE` (`project_type` ASC) VISIBLE)AUTO_INCREMENT = 1;
+
+-- ------------------------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`project` (
+--   `project_id` INT NOT NULL AUTO_INCREMENT,
+--   `user_id` INT NOT NULL,
+--   `type_id` INT NOT NULL,
+--   `company_id` INT NOT NULL,
+--   `project_name` VARCHAR(100) NOT NULL,
+--   `Discription` VARCHAR(200) NULL,
+--   `school_id` INT NOT NULL,
+--   `start_date` DATE NOT NULL,
+--   `end_date` DATE NULL,
+--   PRIMARY KEY (`project_id`),
+--   INDEX `project_user_idx` (`user_id` ASC) VISIBLE,
+--   INDEX `project_type_fk_idx` (`type_id` ASC) VISIBLE,
+--   INDEX `project_company_fk_idx` (`company_id` ASC) VISIBLE,
+--   INDEX `school_id_idx` (`school_id` ASC) VISIBLE,
+--   CONSTRAINT `project_user`
+--     FOREIGN KEY (`user_id`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_type_fk`
+--     FOREIGN KEY (`type_id`)
+--     REFERENCES `faculty_hub`.`project_type` (`type_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_company_fk`
+--     FOREIGN KEY (`company_id`)
+--     REFERENCES `faculty_hub`.`company_list` (`company_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `school_id`
+--     FOREIGN KEY (`school_id`)
+--     REFERENCES `faculty_hub`.`school_office` (`school_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION) AUTO_INCREMENT = 1;
+
+-- -----------------------------------------------------------
+
+-- CREATE TABLE `faculty_hub`.`project_interconect` (
+--   `project_interconect_id` INT NOT NULL AUTO_INCREMENT,
+--   `project_id_fk` INT NOT NULL,
+--   `project_inter_user` INT NOT NULL,
+--   `project_inter_school_id` INT NOT NULL,
+--   `project_inter_type_fk` INT NOT NULL,
+--   `project_inter_company` INT NOT NULL,
+--   `project_name` VARCHAR(100) NOT NULL,
+--   `project_inter_description` VARCHAR(200) NULL,
+--   `project_inter_start_date` DATE NOT NULL,
+--   `project_inter_end_date` DATE NULL,
+--   PRIMARY KEY (`project_interconect_id`),
+--   INDEX `project_inter_id_fk_idx` (`project_id_fk` ASC) VISIBLE,
+--   INDEX `project_inter_user_idx` (`project_inter_user` ASC) VISIBLE,
+--   INDEX `project_inter_school_idx` (`project_inter_school_id` ASC) VISIBLE,
+--   INDEX `project_inter_type_idx` (`project_inter_type_fk` ASC) VISIBLE,
+--   INDEX `project_inter_company_idx` (`project_inter_company` ASC) VISIBLE,
+--   CONSTRAINT `project_inter_id_fk`
+--     FOREIGN KEY (`project_id_fk`)
+--     REFERENCES `faculty_hub`.`project` (`project_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_inter_user`
+--     FOREIGN KEY (`project_inter_user`)
+--     REFERENCES `faculty_hub`.`user` (`user_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_inter_school`
+--     FOREIGN KEY (`project_inter_school_id`)
+--     REFERENCES `faculty_hub`.`school_office` (`school_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_inter_type`
+--     FOREIGN KEY (`project_inter_type_fk`)
+--     REFERENCES `faculty_hub`.`project_type` (`type_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `project_inter_company`
+--     FOREIGN KEY (`project_inter_company`)
+--     REFERENCES `faculty_hub`.`company_list` (`company_id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION)AUTO_INCREMENT = 1;
+
+-- ----------------------------------------------
+
+-- INSERT INTO faculty_hub.project (user_id, type_id, company_id, project_name, Discription, school_id, start_date, end_date)
+-- VALUES (1, 1, 1, 'Project 1', 'Description of Project 1', 1, '2023-07-01', '2023-08-01');
+
+-- INSERT INTO faculty_hub.project (user_id, type_id, company_id, project_name, Discription, school_id, start_date, end_date)
+-- VALUES (1, 1, 1, 'Project 2', 'Description of Project 2', 1, '2023-04-01', '2023-02-01');
+
+-- INSERT INTO `faculty_hub`.`project_type` (type_id, project_type, Discription)
+-- VALUES (1, 'project', 'the projects that been done');
+
+-- INSERT INTO `faculty_hub`.`school_office` (`school_id`, `school_office`, `Department`)
+-- VALUES (1, 'School of Computer and Digital Media', 'Data Analytics');
+
+-- INSERT INTO `faculty_hub`.`company_list`(`company_id`,`company_name`, `discription`,`department`,`contact_number`,`contact_email`)
+-- VALUES(1,'xyz comapny',' working in the area of xyz', 'asd department', '07001234567', 'xyz@gmail.com' );
+
+
+
+
+select * from faculty_hub.company_list
+
+
+
+
