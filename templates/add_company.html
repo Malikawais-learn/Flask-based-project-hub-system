@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add Company</h1>
+<form method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.company_name.label() }}
+        {{ form.company_name(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.discription.label() }}
+        {{ form.discription(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.department.label() }}
+        {{ form.department(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.contact_number.label() }}
+        {{ form.contact_number(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.contact_email.label() }}
+        {{ form.contact_email(class="form-control") }}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+
+
+
+  <h2>Company List</h2>
+  <ul>
+    {% for company in companies %}
+      <li>{{ company.company_name }}</li>
+    {% endfor %}
+  </ul>
+
+
+{% endblock %}

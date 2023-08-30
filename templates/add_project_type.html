@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add Project Type</h1>
+  <form method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+      {{ form.project_type.label() }}
+      {{ form.project_type(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.description.label() }}
+      {{ form.description(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Add School/Office</h1>
+<form method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.school_office.label() }}
+        {{ form.school_office(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.department.label() }}
+        {{ form.department(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome, {{ username }} (Internal User)!</h1>
+<h2>Add Project</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label() }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.description.label() }}
+        {{ form.description(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Add Project</button>
+</form>
+
+<h2>Your Projects</h2>
+{% if projects %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td>{{ project.title }}</td>
+            <td>{{ project.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No projects yet.</p>
+{% endif %}
+{% endblock %}
